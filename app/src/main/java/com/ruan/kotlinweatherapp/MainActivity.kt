@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.Toast
 import com.ruan.kotlinweatherapp.R.layout
+import data.Future
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.uiThread
 import java.net.URLEncoder
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,7 +49,18 @@ class MainActivity : AppCompatActivity() {
             Log.e("Com",result.toString())
             uiThread{
                 longToast("正在请求网络")
-                ry_forcast_list.adapter = ForecastListAdapter(result)
+//                ry_forcast_list.adapter = ForecastListAdapter(result,object : ForecastListAdapter.OnItemClickListener{
+//                    override fun invoke(forecast: Future) {
+//
+//                        toast(forecast.date)//Anko库函数
+//
+//                    }
+//
+//                })
+                //简化模式
+//                ry_forcast_list.adapter = ForecastListAdapter(result){ forecast->toast(forecast.date)}
+                //终极简化模式
+                ry_forcast_list.adapter = ForecastListAdapter(result){toast(it.date)}
             }
 
         }
